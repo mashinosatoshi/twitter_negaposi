@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import json
@@ -17,7 +16,7 @@ url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
 
 # Enedpointへ渡すパラメーター
 params = {
-    # 'count'       : 5,             # 取得するtweet数
+    'count'       : 200,             # 取得するtweet数
     'screen_name': 'kantamizutamari',  # twitterアカウント名
 }
 
@@ -25,9 +24,9 @@ req = twitter.get(url, params=params)
 
 if req.status_code == 200:
     res = json.loads(req.text)
+    print(len(res))
     for line in res:
-        print(line['user']['name']+'::'+line['text'])
-        print(line['created_at'])
+        print(line['text'])
         print('*******************************************')
 else:
     print("Failed: %d" % req.status_code)
