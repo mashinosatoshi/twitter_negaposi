@@ -3,7 +3,7 @@
 import json
 import getTimelineTweet
 
-req = getTimelineTweet.get_tweet('matsugae_tmyk')
+req = getTimelineTweet.get_tweet('matsugae_tmyk', 1)
 if req.status_code == 200:
     res = json.loads(req.text)
     print(len(res))

@@ -4,7 +4,7 @@ from requests_oauthlib import OAuth1Session
 
 # ツイートを取得する。
 # ツイッターAPIへ接続するため、./config.pyへトークンなどを設定しなければならない。
-def get_tweet(screen_name=None, max_id=None):
+def get_tweet(screen_name=None, count=None, max_id=None):
     # OAuth認証部分
     CK = config.CONSUMER_KEY
     CS = config.CONSUMER_SECRET
@@ -14,13 +14,15 @@ def get_tweet(screen_name=None, max_id=None):
 
     # Enedpointへ渡すパラメーター
     params = {
-        'count'          : 200, # 取得するtweet数
         'include_rts'    : 0,   # リツイートしたものは含めない
         'exclude_replies': 1,   # リプライは含めない
     }
     # 名前があれば設定する
     if screen_name is not None:
         params['screen_name'] = screen_name
+    # 取得数があれば設定する
+    if screen_name is not None:
+        params['count'] = count
     # 過去を遡る際に使用する
     if max_id is not None:
         params['max_id'] = max_id
