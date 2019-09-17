@@ -1,32 +1,30 @@
 # -*- coding: utf-8 -*-
-
-import json
 import config
 from requests_oauthlib import OAuth1Session
 
-# OAuth認証部分
-CK = config.CONSUMER_KEY
-CS = config.CONSUMER_SECRET
-AT = config.ACCESS_TOKEN
-ATS = config.ACCESS_TOKEN_SECRET
-twitter = OAuth1Session(CK, CS, AT, ATS)
+# ツイートを取得する。
+# ツイッターAPIへ接続するため、./config.pyへトークンなどを設定しなければならない。
+def get_tweet(screen_name=None, count=None, max_id=None):
+    # OAuth認証部分
+    CK = config.CONSUMER_KEY
+    CS = config.CONSUMER_SECRET
+    AT = config.ACCESS_TOKEN
+    ATS = config.ACCESS_TOKEN_SECRET
+    twitter = OAuth1Session(CK, CS, AT, ATS)
 
-# Twitter Endpoint(ユーザータイムラインを取得する)
-url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+    # Enedpointへ渡すパラメーター
+    params = {
+        'include_rts'    : 0,   # リツイートしたものは含めない
+        'exclude_replies': 1,   # リプライは含めない
+    }
+    # 名前があれば設定する
+    if screen_name is not None:
+        params['screen_name'] = screen_name
+    # 取得数があれば設定する
+    if screen_name is not None:
+        params['count'] = count
+    # 過去を遡る際に使用する
+    if max_id is not None:
+        params['max_id'] = max_id
 
-# Enedpointへ渡すパラメーター
-params = {
-    'count'       : 200,             # 取得するtweet数
-    'screen_name': 'kantamizutamari',  # twitterアカウント名
-}
-
-req = twitter.get(url, params=params)
-
-if req.status_code == 200:
-    res = json.loads(req.text)
-    print(len(res))
-    for line in res:
-        print(line['text'])
-        print('*******************************************')
-else:
-    print("Failed: %d" % req.status_code)
+    return twitter.get("https://api.twitter.com/1.1/statuses/user_timeline.json", params=params)
