@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-import config
+from config import config
 from requests_oauthlib import OAuth1Session
+"""
+ツイートを取得する
+ツイッターAPIへ接続するため、./config.pyへトークンなどを設定しなければならない
+"""
 
-# ツイートを取得する。
-# ツイッターAPIへ接続するため、./config.pyへトークンなどを設定しなければならない。
+
 def get_tweet(screen_name=None, count=None, max_id=None):
     # OAuth認証部分
     CK = config.CONSUMER_KEY
@@ -14,7 +17,7 @@ def get_tweet(screen_name=None, count=None, max_id=None):
 
     # Enedpointへ渡すパラメーター
     params = {
-        'include_rts'    : 0,   # リツイートしたものは含めない
+        'include_rts': 0,   # リツイートしたものは含めない
         'exclude_replies': 1,   # リプライは含めない
     }
     # 名前があれば設定する
