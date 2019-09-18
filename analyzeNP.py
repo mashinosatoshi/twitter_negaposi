@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import pandas as pd
-import os, re, MeCab
+import os, re, MeCab, pandas
 """
 ネガポジ判定
 """
@@ -13,7 +12,7 @@ class analyzeNP:
     def __init__(self):
         trans = {'n': -1, 'e': 0, 'p': 1}
         dic_file = os.path.dirname(os.path.abspath(__file__)) + '/pn.csv.m3.120408.trim'
-        pd_dic = pd.read_csv(dic_file, sep='\t', header=None)
+        pd_dic = pandas.read_csv(dic_file, sep='\t', header=None)
         t_ward_set = {}
 
         for col in pd_dic.values:
