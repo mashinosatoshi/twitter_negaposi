@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
-import getTimelineTweet
-import analyzeNP
+import getTimelineTweet, analyzeNP
 
 anp = analyzeNP.analyzeNP()
 
