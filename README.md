@@ -1,4 +1,4 @@
-# use_twitter_auth
+# twitter_negaposi
 ### 必須なもの
 ./config.py：TwitterのAPI使うためのトークンとか
 ```

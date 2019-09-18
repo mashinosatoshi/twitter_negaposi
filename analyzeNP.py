@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
-import os, re
-import morphologicalAnalysis
+import os, re, MeCab
 """
 ネガポジ判定
 """
@@ -25,7 +24,8 @@ class analyzeNP:
         self.ward_set = t_ward_set
 
         # 形態素解析実行メソッド
-        self.m = morphologicalAnalysis.init()
+        self.m = MeCab.Tagger('-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd')
+        self.m.parseToNode('')
 
     """
     解析実行
