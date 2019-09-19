@@ -7,7 +7,7 @@ from requests_oauthlib import OAuth1Session
 """
 
 
-def get_tweet(screen_name=None, count=None, max_id=None):
+def get_tweet(q, count=None, max_id=None):
     # OAuth認証部分
     CK = config.CONSUMER_KEY
     CS = config.CONSUMER_SECRET
@@ -17,12 +17,10 @@ def get_tweet(screen_name=None, count=None, max_id=None):
 
     # Enedpointへ渡すパラメーター
     params = {
+        'q': q,
         'include_rts': 0,   # リツイートしたものは含めない
         'exclude_replies': 1,   # リプライは含めない
     }
-    # 名前があれば設定する
-    if screen_name is not None:
-        params['screen_name'] = screen_name
     # 取得数があれば設定する
     if count is not None:
         params['count'] = count
@@ -30,4 +28,4 @@ def get_tweet(screen_name=None, count=None, max_id=None):
     if max_id is not None:
         params['max_id'] = max_id
 
-    return twitter.get("https://api.twitter.com/1.1/statuses/user_timeline.json", params=params)
+    return twitter.get('https://api.twitter.com/1.1/search/tweets.json', params=params)
