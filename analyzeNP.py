@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os, re, MeCab, pandas
+import os, re, MeCab, pandas, collections
 """
 ネガポジ判定
 """
@@ -35,8 +35,12 @@ class analyzeNP:
         ma = self.m.parseToNode(t)
         score = 0
         count = 0
+        counter = []
+
         while ma:
             text = ma.feature.split(',')[6]
+            if len(text) >= 3:
+                counter.append(text)
             for i in range(len(text), 0, -1):
                 # 前方一致で見つかるまで判定表と付き合わせる
                 if text[0:i] in self.ward_set:
@@ -45,5 +49,5 @@ class analyzeNP:
                     break
             ma = ma.next
         if count == 0:
-            return 0
-        return score / count
+            return [score, collections.Counter()]
+        return [score / count, collections.Counter(counter)]
